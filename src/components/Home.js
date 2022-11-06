@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 import "./Home.css";
 
 const Home = () => {
+  useEffect(() => {
+    const getposts = async () => {
+      const data = await getDocs(collection(db, "posts"));
+      console.log(data);
+      console.log(data.docs);
+      console.log(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getposts();
+  }, []);
+
   return (
     <div className="homePage">
       <div className="postContents">
